@@ -1,0 +1,25 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: tworptest
+  labels:
+    app: tworp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tworp
+  template:
+    metadata:
+      labels:
+        app: tworp
+    spec:
+      containers:
+        - name: tworptest
+          image: docker.io/phmsp/tworptest:1.0
+          env:
+            - name: TWORPTEST
+              valueFrom:
+                secretKeyRef:
+                  key: TWORPTEST
+                  name: tworpsecret
